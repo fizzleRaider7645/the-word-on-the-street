@@ -15,7 +15,7 @@ async function searchTweets() {
       data: { data },
     } = await axios.get(`${TWITTER_API_BASE_URL}/tweets/search/recent`, {
       params: {
-        query: symbols.join(" OR "),
+        query: `${symbols.join(" OR ")} lang:en`,
         max_results: 100,
       },
       headers: {

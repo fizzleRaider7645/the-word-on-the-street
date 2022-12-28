@@ -11,7 +11,7 @@ function formatTweetData(tweetTextArray) {
       .filter((tweetTextString) => tweetTextString.startsWith("$"));
 
     result[index + 1] = {
-      tickers: tickerSymbolsReferenced,
+      ticker: tickerSymbolsReferenced,
       text: tweetText,
       sentiment: tweetSentiment,
     };

@@ -4,7 +4,6 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-const sentiment = new Sentiment();
 const TWITTER_API_BASE_URL = "https://api.twitter.com/2";
 const BEARER_TOKEN = process.env.BEARER_TOKEN;
 
@@ -24,16 +23,10 @@ async function searchTweets() {
         "Content-Type": "application/json",
       },
     });
-    const tweetTexts = data.map((tweet) => tweet.text);
-    const tweetTextsSentiment = tweetTexts.map((text) =>
-      sentiment.analyze(text)
-    );
-    const result = { tweetTexts, tweetTextsSentiment };
-    console.dir(result);
-    return result;
+    return data.map((tweet) => tweet.text);
   } catch (error) {
     console.error(error);
   }
 }
 
-exports.searchTweets = searchTweets;
+module.exports = searchTweets;

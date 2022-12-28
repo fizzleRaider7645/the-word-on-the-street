@@ -1,8 +1,10 @@
-const { scripts } = require("./scripts");
+const {
+  scripts: { searchTweets, formatTweetData },
+} = require("./scripts");
 
 async function main() {
-  const tweets = await scripts.searchTweets();
-  const tweetData = scripts.formatTweetData(tweets);
+  const tweets = await searchTweets();
+  const tweetData = formatTweetData(tweets);
   console.log(tweetData[1]);
 }
 

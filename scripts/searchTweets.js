@@ -1,11 +1,10 @@
 const axios = require("axios");
-const Sentiment = require("sentiment");
 const dotenv = require("dotenv");
 
 dotenv.config();
 
 const TWITTER_API_BASE_URL = "https://api.twitter.com/2";
-const BEARER_TOKEN = process.env.BEARER_TOKEN;
+const BEARER_TOKEN = process.env.TWITTER_BEARER_TOKEN;
 
 async function searchTweets() {
   const symbols = process.argv.slice(2);
@@ -16,7 +15,7 @@ async function searchTweets() {
     } = await axios.get(`${TWITTER_API_BASE_URL}/tweets/search/recent`, {
       params: {
         query: `${symbols.join(" OR ")} lang:en`,
-        max_results: 100,
+        max_results: 10,
       },
       headers: {
         Authorization: `Bearer ${BEARER_TOKEN}`,

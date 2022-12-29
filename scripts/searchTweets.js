@@ -6,6 +6,9 @@ dotenv.config();
 const TWITTER_API_BASE_URL = "https://api.twitter.com/2";
 const BEARER_TOKEN = process.env.TWITTER_BEARER_TOKEN;
 
+/**
+ * @returns {Promise<string[]>}
+ */
 async function searchTweets() {
   const symbols = process.argv.slice(2);
 

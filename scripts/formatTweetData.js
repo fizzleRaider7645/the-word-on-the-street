@@ -1,5 +1,22 @@
 const getSentiment = require("./getSentiment");
 
+/**
+ * @typedef {Object} Sentiment
+ * @property {string} choices
+ * @property {Object} usage
+ * @property {boolean} sentiment
+
+/**
+ * @typedef {Object} Result
+ * @property {string[]} ticker
+ * @property {string} text
+ * @property {Sentiment} sentiment
+ */
+
+/**
+ * @param {string[]} tweetTextArray
+ * @returns {Promise<Result>}
+ */
 async function formatTweetData(tweetTextArray) {
   const result = {};
   for (let i = 0; i < tweetTextArray.length; i++) {

@@ -3,6 +3,10 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
+/**
+ * @param {string[]} tweetTextArray
+ * @returns {Promise<string[]>}
+ */
 async function getSentiment(tweetTextArray) {
   const configuration = new Configuration({
     apiKey: process.env.OPENAI_SECRET_KEY,

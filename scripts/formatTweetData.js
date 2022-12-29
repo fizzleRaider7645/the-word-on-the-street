@@ -1,10 +1,15 @@
 const getSentiment = require("./getSentiment");
 
 /**
+ * @typedef {Object} Usage
+ */
+
+/**
  * @typedef {Object} Sentiment
  * @property {string} choices
- * @property {Object} usage
+ * @property {Usage} usage
  * @property {boolean} sentiment
+ */
 
 /**
  * @typedef {Object} Result
@@ -14,6 +19,7 @@ const getSentiment = require("./getSentiment");
  */
 
 /**
+ * Returns formatted Tweet data
  * @param {string[]} tweetTextArray
  * @returns {Promise<Result>}
  */

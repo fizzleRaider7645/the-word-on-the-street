@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 /**
+ * Returns Sentiment Analysis
  * @param {string[]} tweetTextArray
  * @returns {Promise<string[]>}
  */

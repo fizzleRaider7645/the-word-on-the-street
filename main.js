@@ -1,4 +1,3 @@
-const shell = require("shelljs");
 const {
   scripts: { searchTweets, formatTweetData },
 } = require("./scripts");
@@ -17,7 +16,7 @@ const twirlTimer = function () {
 
 function logResult(logger, content, intervalId) {
   clearInterval(intervalId);
-  shell.exec("clear");
+  console.clear();
   logger(content);
 }
 // silly helpers

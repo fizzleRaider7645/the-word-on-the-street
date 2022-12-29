@@ -3,7 +3,7 @@ const {
   scripts: { searchTweets, formatTweetData },
 } = require("./scripts");
 
-// silly helper
+// silly helpers
 const twirlTimer = function () {
   const P = ["\\", "|", "/", "-"];
   let x = 0;
@@ -15,23 +15,22 @@ const twirlTimer = function () {
   return intervalId;
 };
 
-function main() {
-  console.log("Running Analysis...");
+function logResult(logger, content, intervalId) {
+  clearInterval(intervalId);
+  shell.exec("clear");
+  logger(content);
+}
+// silly helpers
+
+async function main() {
   const intervalId = twirlTimer();
-  searchTweets()
-    .then((tweets) => formatTweetData(tweets))
-    .then((result) => {
-      clearInterval(intervalId);
-      shell.exec("clear");
-      console.log("Analysis Complete!");
-      console.log(result);
-    })
-    .catch((error) => {
-      clearInterval(intervalId);
-      shell.exec("clear");
-      console.error("Analysis Failed!");
-      console.error(error);
-    });
+  try {
+    const tweets = await searchTweets();
+    const result = await formatTweetData(tweets);
+    logResult(console.log, result, intervalId);
+  } catch (error) {
+    logResult(console.error, error.response.data.error, intervalId);
+  }
 }
 
 main();

@@ -3,16 +3,14 @@ const {
 } = require("./scripts");
 
 // silly helpers
-const twirlTimer = function () {
+function twirlTimer() {
   const P = ["\\", "|", "/", "-"];
   let x = 0;
-  const intervalId = setInterval(function () {
+  return setInterval(function () {
     process.stdout.write("\r" + P[x++]);
     x &= 3;
   }, 250);
-
-  return intervalId;
-};
+}
 
 function logResult(logger, content, intervalId) {
   clearInterval(intervalId);

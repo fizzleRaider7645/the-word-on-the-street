@@ -1,16 +1,13 @@
 const axios = require("axios");
-const dotenv = require("dotenv");
-
-dotenv.config();
+const env = require("./index");
 
 const TWITTER_API_BASE_URL = "https://api.twitter.com/2";
-const BEARER_TOKEN = process.env.TWITTER_BEARER_TOKEN;
 
 /**
  * @returns {Promise<string[]>}
  */
 async function searchTweets() {
-  const symbols = process.argv.slice(2);
+  const symbols = process.argv.slice(2) || "AAPL";
 
   try {
     const {
@@ -21,10 +18,11 @@ async function searchTweets() {
         max_results: 30,
       },
       headers: {
-        Authorization: `Bearer ${BEARER_TOKEN}`,
+        Authorization: `Bearer ${env.credentials.BEARER_TOKEN}`,
         "Content-Type": "application/json",
       },
     });
+
     return data.map((tweet) => tweet.text);
   } catch (error) {
     console.error(error);

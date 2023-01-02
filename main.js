@@ -24,9 +24,10 @@ async function main() {
   try {
     const tweets = await searchTweets();
     const result = await formatTweetData(tweets);
-    logResult(console.log, result, intervalId);
+    logResult(console.log, tweets, intervalId);
   } catch (error) {
     logResult(console.error, error.response.data.error, intervalId);
+    logResult(console.error, error, intervalId);
   }
 }
 

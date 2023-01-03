@@ -38,23 +38,6 @@ async function searchTweets(searchQuery, lang = "en") {
   }
 }
 
-async function getUser(userId) {
-  try {
-    const response = await axios.get(`${API_URL}users/${userId}`, {
-      params: {
-        "user.fields":
-          "username,location,profile_image_url,verified,public_metrics,url",
-      },
-      headers: {
-        Authorization: `Bearer ${BEARER_TOKEN}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error(error.response.data.errors);
-  }
-}
-
 async function main() {
   // Search for tweets related to the stock market
   const { data } = await searchTweets("stock market");

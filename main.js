@@ -20,14 +20,14 @@ function logResult(logger, content, intervalId) {
 // silly helpers
 
 async function main() {
-  const intervalId = twirlTimer();
+  // const intervalId = twirlTimer();
   try {
     const tweets = await searchTweets();
-    const result = await formatTweetData(tweets);
-    logResult(console.log, tweets, intervalId);
+    // const result = await formatTweetData(tweets);
+    // logResult(console.log, tweets, intervalId);
   } catch (error) {
-    logResult(console.error, error.response.data.error, intervalId);
-    logResult(console.error, error, intervalId);
+    // logResult(console.error, error.response.data.error, intervalId);
+    // logResult(console.error, error, intervalId);
   }
 }
 

@@ -15,6 +15,7 @@ async function searchTweets() {
     } = await axios.get(`${TWITTER_API_BASE_URL}/tweets/search/recent`, {
       params: {
         query: `${symbols.join(" OR ")} lang:en`,
+        expansions: "author_id",
         max_results: 30,
       },
       headers: {
@@ -22,10 +23,11 @@ async function searchTweets() {
         "Content-Type": "application/json",
       },
     });
-
-    return data.map((tweet) => tweet.text);
+    console.log(data);
+    data.forEach((tweet) => {});
+    // return data.map((tweet) => tweet.text);
   } catch (error) {
-    console.error(error);
+    console.error(error.response.data.errors);
   }
 }
 

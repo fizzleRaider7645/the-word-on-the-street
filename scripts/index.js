@@ -17,21 +17,21 @@ dotenv.config();
 //   getSentiment,
 // };
 
-const apiUrl = "https://api.twitter.com/2/";
-const bearerToken = process.env.TWITTER_BEARER_TOKEN;
+const API_URL = "https://api.twitter.com/2/";
+const BEARER_TOKEN = process.env.TWITTER_BEARER_TOKEN;
 
 async function searchTweets(searchQuery, lang = "en") {
   try {
-    const response = await axios.get(`${apiUrl}tweets/search/recent`, {
+    const response = await axios.get(`${API_URL}tweets/search/recent`, {
       params: {
         query: `${searchQuery} lang:${lang}`,
         expansions: "author_id",
       },
       headers: {
-        Authorization: `Bearer ${bearerToken}`,
+        Authorization: `Bearer ${BEARER_TOKEN}`,
       },
     });
-    console.log(response.data.includes);
+    // console.log(response.data.includes);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -40,13 +40,13 @@ async function searchTweets(searchQuery, lang = "en") {
 
 async function getUser(userId) {
   try {
-    const response = await axios.get(`${apiUrl}users/${userId}`, {
+    const response = await axios.get(`${API_URL}users/${userId}`, {
       params: {
-        "user.fields": "username,location,profile_image_url,verified",
-        expansions: "pinned_tweet_id",
+        "user.fields":
+          "username,location,profile_image_url,verified,public_metrics,url",
       },
       headers: {
-        Authorization: `Bearer ${bearerToken}`,
+        Authorization: `Bearer ${BEARER_TOKEN}`,
       },
     });
     return response.data;
@@ -65,10 +65,12 @@ async function main() {
       return await getUser(tweet.author_id);
     })
   );
-  // console.log(users);
+
   // // Filter the users to only include those with over 100k followers
-  const topUsers = users.filter((user) => user.followers_count >= 20);
-  // console.log(topUsers);
+  const topUsers = users.filter(
+    (user) => user.data.public_metrics.followers_count >= 1000
+  );
+  console.log(topUsers);
 }
 
 main();

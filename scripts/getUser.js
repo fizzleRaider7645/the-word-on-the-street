@@ -1,11 +1,30 @@
-const axios = require("axios");
+const {
+  config: {
+    credentials: { TWITTER_API_URL, BEARER_TOKEN },
+    services: { AXIOS },
+  },
+} = require("./config");
 
-const API_URL = "https://api.twitter.com/2/";
-const BEARER_TOKEN = process.env.TWITTER_BEARER_TOKEN;
+/**
+ * Returns Sentiment Analysis
+ * @typedef {Object} UserData
+ * @property {string} location
+ * @property {string} profile_image_url
+ * @property {string} id
+ * @property {string} username
+ * @property {string} name
+ * @property {Object} public_metrics
+ * @property {boolean} verified
+ */
 
+/**
+ * Returns Sentiment Analysis
+ * @param {string} userId
+ * @returns {Promise<{UserData}>}
+ */
 async function getUser(userId) {
   try {
-    const response = await axios.get(`${API_URL}users/${userId}`, {
+    const response = await AXIOS.get(`${TWITTER_API_URL}users/${userId}`, {
       params: {
         "user.fields":
           "username,location,profile_image_url,verified,public_metrics,url",

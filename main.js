@@ -1,9 +1,6 @@
-const dotenv = require("dotenv");
 const {
-  scripts: { searchTweets, formatTweetData },
+  scripts: { searchTweets, formatTweetData, getUser },
 } = require("./scripts");
-
-dotenv.config();
 
 // silly helpers
 function twirlTimer() {
@@ -23,21 +20,28 @@ function logResult(logger, content, intervalId) {
 // silly helpers
 
 async function main() {
-  // Search for tweets related to the stock market
-  const { data } = await searchTweets("stock market");
+  const intervalId = twirlTimer();
 
-  // Get the user object for each tweet
-  const users = await Promise.all(
-    data.map(async (tweet) => {
-      return await getUser(tweet.author_id);
-    })
-  );
+  try {
+    // Search for tweets related to the stock market
+    const { data } = await searchTweets("stock market");
 
-  // // Filter the users to only include those with over 100k followers
-  const topUsers = users.filter(
-    (user) => user.data.public_metrics.followers_count >= 1000
-  );
-  console.log(topUsers);
+    // Get the user object for each tweet
+    const users = await Promise.all(
+      data.map(async (tweet) => {
+        return await getUser(tweet.author_id);
+      })
+    );
+
+    // Filter the users to only include those with over 100k followers
+    const topUsers = users.filter(
+      (user) => user.data.public_metrics.followers_count >= 1000
+    );
+
+    logResult(console.log, topUsers, intervalId);
+  } catch (error) {
+    logResult(console.error, error, intervalId);
+  }
 }
 
 main();

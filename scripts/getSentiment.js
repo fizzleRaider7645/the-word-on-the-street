@@ -1,5 +1,4 @@
 const { Configuration, OpenAIApi } = require("openai");
-const env = require("./index");
 
 /**
  * Returns Sentiment Analysis
@@ -8,7 +7,7 @@ const env = require("./index");
  */
 async function getSentiment(tweetTextArray) {
   const configuration = new Configuration({
-    apiKey: env.credentials.OPENAI_SECRET_KEY,
+    apiKey: process.env.OPENAI_SECRET_KEY,
   });
   const openai = new OpenAIApi(configuration);
   const completion = await openai.createCompletion({

@@ -1,33 +1,23 @@
 const axios = require("axios");
-const env = require("./index");
 
-const TWITTER_API_BASE_URL = "https://api.twitter.com/2";
+const API_URL = "https://api.twitter.com/2/";
+const BEARER_TOKEN = process.env.TWITTER_BEARER_TOKEN;
 
-/**
- * @returns {Promise<string[]>}
- */
-async function searchTweets() {
-  const symbols = process.argv.slice(2) || "AAPL";
-
+async function searchTweets(searchQuery, lang = "en") {
   try {
-    const {
-      data: { data },
-    } = await axios.get(`${TWITTER_API_BASE_URL}/tweets/search/recent`, {
+    const response = await axios.get(`${API_URL}tweets/search/recent`, {
       params: {
-        query: `${symbols.join(" OR ")} lang:en`,
+        query: `${searchQuery} lang:${lang}`,
         expansions: "author_id",
-        max_results: 30,
       },
       headers: {
-        Authorization: `Bearer ${env.credentials.BEARER_TOKEN}`,
-        "Content-Type": "application/json",
+        Authorization: `Bearer ${BEARER_TOKEN}`,
       },
     });
-    console.log(data);
-    data.forEach((tweet) => {});
-    // return data.map((tweet) => tweet.text);
+
+    return response.data;
   } catch (error) {
-    console.error(error.response.data.errors);
+    console.error(error);
   }
 }
 

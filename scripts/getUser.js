@@ -1,3 +1,8 @@
+const axios = require("axios");
+
+const API_URL = "https://api.twitter.com/2/";
+const BEARER_TOKEN = process.env.TWITTER_BEARER_TOKEN;
+
 async function getUser(userId) {
   try {
     const response = await axios.get(`${API_URL}users/${userId}`, {
